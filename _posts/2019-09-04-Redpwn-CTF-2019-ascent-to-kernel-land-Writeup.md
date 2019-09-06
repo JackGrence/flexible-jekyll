@@ -9,7 +9,7 @@ It's my first kernel exploit challenge writeup. Thank you Redpwn CTF!
 
 ## Description
 
-We have [a tgz file](https://github.com/JackGrence/ctf-write-ups/raw/master/2019/RedpwnCTF/ascent-to-kernel-land/ascent-to-kernel-land.tar.gz), it is a tiny os. Follow the Makefile:
+We have a [tgz file](https://github.com/JackGrence/ctf-write-ups/raw/master/2019/RedpwnCTF/ascent-to-kernel-land/ascent-to-kernel-land.tar.gz), it is a lightweight OS. Follow the Makefile:
 
 ```make
 qemu: fs.img xv6.img
@@ -34,7 +34,7 @@ qemu-nox-gdb: fs.img xv6.img .gdbinit
 
 ```
 
-These qemu target can run or debug this os in qemu. Start qemu and attach by gdb:
+These qemu targets can run or debug this OS in qemu. Start qemu and attach it:
 
 ```bash
 $ make qemu-nox-gdb
@@ -44,7 +44,7 @@ qemu-system-i386 -nographic -snapshot -drive file=fs.img,index=1,me...
 gdb-peda$ target remote localhost:26000
 ```
 
-According to README, the flag in kernel memory. We can find `flag` defined in source code(main.c:9):
+According to README, the flag in kernel memory. We can find global variable `flag` defined in source code(main.c:9):
 
 ```c
 #include "proc.h"
@@ -166,7 +166,7 @@ It works! But how can we do in remote?
 
 * The command length is limited.
 * The "\>\>" redirector can't append the content to the file.
-* No any wget or nc in this os.
+* No any wget or nc in this OS.
 
 Finally, `(cat file; echo -n \x00) > file` works for me!
 
